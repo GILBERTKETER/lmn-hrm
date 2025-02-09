@@ -8,7 +8,7 @@ import path from "node:path";
 export default defineConfig({
   server: {
     host: "local.cw.co.ke",
-    port: 3001,
+    port: 3000,
   },
   css: {
     postcss: {
