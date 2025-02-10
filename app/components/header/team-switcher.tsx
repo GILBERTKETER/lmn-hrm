@@ -4,11 +4,7 @@ import * as React from "react";
 import { Check, ChevronsUpDown, PlusCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -48,7 +44,7 @@ const groups = [
     label: "Personal Account",
     teams: [
       {
-        label: "Alicia Koch",
+        label: "Alicia Rochi",
         value: "personal",
       },
     ],
@@ -82,7 +78,21 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
   const [selectedTeam, setSelectedTeam] = React.useState<Team>(
     groups[0].teams[0]
   );
+  const [isMobile, setIsMobile] = React.useState(false);
+  React.useEffect(() => {
+    // Initial check
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768); // 768px is typical mobile breakpoint
+    };
 
+    checkIfMobile();
+
+    // Add event listener
+    window.addEventListener("resize", checkIfMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkIfMobile);
+  }, []);
   return (
     <Dialog open={showNewTeamDialog} onOpenChange={setShowNewTeamDialog}>
       <Popover open={open} onOpenChange={setOpen}>
@@ -92,7 +102,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
             role="combobox"
             aria-expanded={open}
             aria-label="Select a team"
-            className={cn("w-[200px] justify-between", className)}
+            className={cn("lg:w-[200px] justify-between", className)}
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
@@ -102,11 +112,11 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
               />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
-            {selectedTeam.label}
+            {!isMobile && selectedTeam.label}
             <ChevronsUpDown className="ml-auto opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="ml-4 lg:ml-0 w-[200px] p-0">
           <Command>
             <CommandInput placeholder="Search team..." />
             <CommandList>
