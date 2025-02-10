@@ -7,7 +7,7 @@ import {
 } from "@react-router/dev/routes";
 export const routes: RouteConfig = [
   // Protected routes (require authentication)
-  layout("layouts/plain.tsx", [
+  layout("layouts/main.tsx", [
     route("/", "routes/user/dashboard/index.tsx"),
     // Add other protected routes here
   ]),
