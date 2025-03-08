@@ -11,6 +11,9 @@ import {
   Users,
   FileText,
   CreditCard,
+  Send,
+  Briefcase,
+  AppWindow,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -80,38 +83,44 @@ const data = {
       icon: CreditCard,
     },
     {
-      title: "Settings",
-      url: "/settings",
+      title: "Outreach",
+      url: "/outreach",
+      icon: Send,
+    },
+    {
+      title: "Employees",
+      url: "/employees",
+      icon: Briefcase,
+    },
+    {
+      title: "Applications",
+      url: "/applications",
+      icon: AppWindow,
+    },
+    {
+      title: "System",
+      url: "/system",
       icon: Settings2,
       items: [
         {
-          title: "General",
+          title: "Settings",
           url: "/settings",
         },
         {
-          title: "Service plans & Products",
-          url: "/settings/services",
+          title: "Reports",
+          url: "/settings/reports",
         },
         {
-          title: "Billing",
-          url: "/settings/billing",
+          title: "Help Desk",
+          url: "/settings/help-desk",
         },
         {
-          title: "Customization",
-          url: "/settings/customization",
+          title: "Integrations",
+          url: "/settings/integrations",
         },
-        {
-          title: "Tools",
-          url: "/settings/tools",
-        },
-
         {
           title: "Logs",
           url: "/settings/logs",
-        },
-        {
-          title: "Other",
-          url: "/settings/other",
         },
       ],
     },
@@ -137,7 +146,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible={"icon"} {...props}>
+    <Sidebar collapsible={"icon"} {...props} >
       <SidebarHeader className="flex items-center justify-center">
         <img src="/golden-line.png" className="w-32 h-32" alt="logo" />
       </SidebarHeader>

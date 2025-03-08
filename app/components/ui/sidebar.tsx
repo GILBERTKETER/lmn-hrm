@@ -181,7 +181,7 @@ const Sidebar = React.forwardRef<
       return (
         <div
           className={cn(
-            "flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground",
+            "flex h-full w-[--sidebar-width] flex-col bg-white text-sidebar-foreground",
             className
           )}
           ref={ref}
@@ -198,7 +198,7 @@ const Sidebar = React.forwardRef<
           <SheetContent
             data-sidebar="sidebar"
             data-mobile="true"
-            className="w-[--sidebar-width] bg-sidebar bg-white p-0 text-sidebar-foreground dark:bg-sidebar [&>button]:hidden h-screen" // Added h-screen
+            className="w-[--sidebar-width] bg-white bg-white p-0 text-sidebar-foreground dark:bg-sidebar [&>button]:hidden h-screen" // Added h-screen
             style={
               {
                 "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
@@ -225,7 +225,7 @@ const Sidebar = React.forwardRef<
         {/* This is what handles the sidebar gap on desktop */}
         <div
           className={cn(
-            "duration-200 relative h-[calc(100vh-4rem)] top-16 w-[--sidebar-width] bg-transparent transition-[width] ease-linear",
+            "duration-200 relative h-[calc(100vh-4rem)] top-16 w-[--sidebar-width] bg-white transition-[width] ease-linear",
             "group-data-[collapsible=offcanvas]:w-0",
             "group-data-[side=right]:rotate-180",
             variant === "floating" || variant === "inset"
@@ -249,7 +249,7 @@ const Sidebar = React.forwardRef<
         >
           <div
             data-sidebar="sidebar"
-            className="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
+            className="flex h-full w-full flex-col bg-white group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
           >
             {children}
           </div>

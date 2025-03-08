@@ -1,100 +1,72 @@
-# Welcome to React Router!
+# 🌟 Lumenario - The One-Stop Digital Hub
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Welcome to **Lumenario**, your all-in-one platform for business management, communication, and financial operations. Designed for efficiency and innovation, Lumenario helps streamline workflows, manage employees, handle payments, and more! 🚀
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## ✨ Features
+- **📊 Dashboard** – Get a real-time overview of your business activities.
+- **💳 Payments** – Manage transactions, invoices, and revenue streams effortlessly.
+- **📜 Invoices** – Generate, send, and track invoices in one place.
+- **👨‍💼 Employees** – Manage employee details, roles, and permissions.
+- **📂 Applications** – A centralized space for handling apps and integrations.
+- **📢 Outreach** – Send emails & WhatsApp messages with ease.
+- **⚙️ Settings** – Configure reports, integrations, logs, and support options.
 
-## Features
+## 🔧 Installation & Setup
+### Prerequisites
+Ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (for the frontend)
+- [Go](https://golang.org/) (for the backend)
+- [MySQL/PostgreSQL](https://www.mysql.com/) (or any database of choice)
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
-
-```bash
-npm install
+### Clone the Repository
+```sh
+ git clone https://github.com/yourusername/lumenario.git
+ cd lumenario
 ```
 
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
+### Backend Setup (Go)
+```sh
+ cd backend
+ go mod tidy
+ go run main.go
 ```
 
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
+### Frontend Setup (Next.js)
+```sh
+ cd frontend
+ npm install
+ npm run dev
 ```
 
-## Deployment
-
-### Docker Deployment
-
-This template includes three Dockerfiles optimized for different package managers:
-
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
-
-```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+## 📌 Project Structure
+```
+Lumenario/
+│── frontend/   # Next.js Frontend
+│── backend/    # Go Backend
+│── docs/       # Documentation
+│── .env        # Environment Variables
+│── README.md   # This File
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+## 🚀 Usage
+1. Start the **backend server**: `go run main.go`
+2. Start the **frontend**: `npm run dev`
+3. Open `http://localhost:3000` in your browser.
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+## 📅 Roadmap
+- [ ] User authentication & authorization 🔐
+- [ ] Advanced analytics & reporting 📈
+- [ ] AI-driven automation 🤖
+- [ ] Mobile App Version 📱
 
-### DIY Deployment
+## 🤝 Contributing
+We welcome contributions! 🚀 Fork the repo, make changes, and submit a PR.
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
+## 📜 License
+Licensed under the [MIT License](LICENSE).
 
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+## 📞 Contact
+Have questions? Reach out:
+📧 Email: [support@lumenario.com](mailto:support@lumenario.com)  
+🌐 Website: [lumenario.com](https://lumenario.com)  
+🐦 Twitter: [@lumenarioHQ](https://twitter.com/lumenarioHQ)
