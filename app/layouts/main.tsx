@@ -8,13 +8,14 @@ import { Outlet } from "react-router";
 
 import TeamSwitcher from "@/components/header/team-switcher";
 import { UserNav } from "@/components/header/user-nav";
+import { withAuth } from "@/hooks/Auth";
 
-export default function MainLayout() {
+const MainLayout = () => {
   return (
     <div className="flex flex-col">
       {/* Fixed header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b">
-        <div className="flex h-16 items-center px-4">
+        <div className="flex h-16 items-center px-2">
           <TeamSwitcher />
           <div className="ml-auto flex items-center space-x-4">
             <UserNav />
@@ -42,4 +43,5 @@ export default function MainLayout() {
       </SidebarProvider>
     </div>
   );
-}
+};
+export default withAuth(MainLayout, true);
