@@ -15,7 +15,7 @@ import {
   Briefcase,
   AppWindow,
 } from "lucide-react";
-
+import { useTheme } from "@/context/use-theme";
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
@@ -145,10 +145,15 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { theme } = useTheme();
   return (
-    <Sidebar collapsible={"icon"} {...props} >
+    <Sidebar collapsible={"icon"} {...props}>
       <SidebarHeader className="flex items-center justify-center">
-        <img src="/golden-line.png" className="w-32 h-32" alt="logo" />
+        <img
+          src={theme === "dark" ? "white.png" : "/golden-line.png"}
+          className="w-32 h-32"
+          alt="logo"
+        />{" "}
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />

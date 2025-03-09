@@ -13,8 +13,12 @@ import {
 import { useAuth } from "@/hooks/Auth";
 import { LogOut, SunMoon } from "lucide-react";
 import { Switch } from "../ui/switch";
+import { useEffect, useState } from "react";
+import { useTheme } from "@/context/use-theme";
 
 export function UserNav() {
+  const { theme, toggleTheme } = useTheme();
+
   const { logout, user } = useAuth();
   return (
     <DropdownMenu>
@@ -46,7 +50,7 @@ export function UserNav() {
             <SunMoon className="h-4 w-4" />
             <span>Toggle theme</span>
           </div>
-          <Switch />
+          <Switch checked={theme === "dark"} onCheckedChange={toggleTheme} />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={logout}>

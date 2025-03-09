@@ -14,7 +14,7 @@ const MainLayout = () => {
   return (
     <div className="flex flex-col">
       {/* Fixed header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b">
         <div className="flex h-16 items-center px-2">
           <TeamSwitcher />
           <div className="ml-auto flex items-center space-x-4">
