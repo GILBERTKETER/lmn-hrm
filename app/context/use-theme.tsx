@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { createContext, useState, useEffect, useContext } from "react";
-
+import Cookies from "js-cookie";
 const ThemeContext = createContext({
   theme: "light",
   toggleTheme: () => {},
@@ -10,10 +10,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
+    const savedTheme = Cookies.get("lmn-theme");
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
+
     if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
       setTheme("dark");
       document.documentElement.classList.add("dark");
@@ -27,7 +28,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     setTheme((prevTheme) => {
       const newTheme = prevTheme === "light" ? "dark" : "light";
       document.documentElement.classList.toggle("dark", newTheme === "dark");
-      localStorage.setItem("theme", newTheme);
+
+      Cookies.set("lmn-theme", newTheme, { expires: 365, path: "/" });
+
       return newTheme;
     });
   };
