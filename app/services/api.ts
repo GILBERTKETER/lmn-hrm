@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
 
-const API_URL = "http://local.cw.co.ke:8000";
+const API_URL = import.meta.env.VITE_AUTH_URL;
 
 const token = Cookies.get("auth_token");
 //console.log("Cookies: ", token);

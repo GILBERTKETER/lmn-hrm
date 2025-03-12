@@ -117,26 +117,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.removeItem("auth_token");
         setUser(null);
         toast.success("Logged out successfully");
-        window.location.href = "http://local.cw.co.ke:3001/auth/signin";
+        window.location.href = import.meta.env.VITE_SIGNIN_URL;
       }
     } else {
       //console.warn("No auth_token found");
       toast.error("No token found.");
       // Still redirect to login page
-      window.location.href = "http://local.cw.co.ke:3001/auth/signin";
+      window.location.href = import.meta.env.VITE_SIGNIN_URL;
     }
   };
 
   const requireAuth = (
     requiresAuth: boolean,
-    redirectTo: string = "http://local.cw.co.ke:3001/auth/signin"
+    redirectTo: string = import.meta.env.VITE_SIGNIN_URL
   ) => {
     //console.log("requireAuth function called");
     //console.log("isLoading:", isLoading);
     // console.log("user:", user);
 
-    const DASHBOARD_URL = "http://local.cw.co.ke:3000";
-    const SIGNIN_URL = "http://local.cw.co.ke:3001/auth/signin";
+    const DASHBOARD_URL = import.meta.env.VITE_DASHBOARD_URL;
+    const SIGNIN_URL = import.meta.env.VITE_SIGNIN_URL;
 
     if (isLoading) {
       //console.log("Still loading auth state, waiting...");
@@ -180,7 +180,7 @@ export const useAuth = () => {
 export const withAuth = (
   Component: React.ComponentType<any>,
   requiresAuth: boolean = true,
-  redirectTo: string = "http://local.cw.co.ke:3001/auth/signin"
+  redirectTo: string = import.meta.env.VITE_SIGNIN_URL
 ) => {
   const WithAuth = (props: any) => {
     const { requireAuth, isLoading, checkAuth } = useAuth();
