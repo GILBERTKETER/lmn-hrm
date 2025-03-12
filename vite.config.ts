@@ -7,7 +7,7 @@ import path from "node:path";
 
 export default defineConfig({
   server: {
-    host: "local.cw.co.ke",
+    host: "local.lmn.co.ke",
     port: 3000,
   },
   css: {

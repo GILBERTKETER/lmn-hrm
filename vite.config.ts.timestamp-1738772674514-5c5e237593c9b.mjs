@@ -8,7 +8,7 @@ import path from "node:path";
 var __vite_injected_original_dirname = "C:\\elitedev\\lumenario";
 var vite_config_default = defineConfig({
   server: {
-    host: "local.cw.co.ke",
+    host: "local.lmn.co.ke",
     port: 3001
   },
   css: {
