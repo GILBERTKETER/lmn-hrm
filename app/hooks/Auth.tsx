@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "sonner";
 import { LogUserOut } from "@/services/api";
-import { LoaderCircle } from "lucide-react";
+import { Loader } from "lucide-react";
 
 // Define types
 interface User {
@@ -199,7 +199,7 @@ export const withAuth = (
 
     return isLoading ? (
       <div className="flex min-h-screen items-center justify-center gap-2">
-        <LoaderCircle className="animate-spin text-primary w-6 h-6" />
+        <Loader className="animate-spin text-primary w-6 h-6" />
         <p>Please wait</p>
       </div>
     ) : (
