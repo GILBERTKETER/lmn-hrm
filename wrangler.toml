@@ -1,9 +1,9 @@
 name = "lmn-hrm"
-type = "javascript"
+type = "module"  # Use "javascript" only if not using ES Modules
 
-# Set entry point
-main = "./app/root.tsx"
+# Set correct entry point
+main = "dist/index.js"
 
-# Add compatibility flags if needed
+# Compatibility settings
 compatibility_date = "2025-03-14"
 compatibility_flags = ["nodejs_compat"]
