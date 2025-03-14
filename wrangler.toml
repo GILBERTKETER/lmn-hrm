@@ -5,4 +5,5 @@ type = "javascript"
 main = "./app/root.tsx"
 
 # Add compatibility flags if needed
+compatibility_date = "2025-03-14"
 compatibility_flags = ["nodejs_compat"]
