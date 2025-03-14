@@ -117,29 +117,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.removeItem("auth_token");
         setUser(null);
         toast.success("Logged out successfully");
-        window.location.href =
-          import.meta.env.VITE_SIGNIN_URL || "https://lmn.co.ke/auth/signin";
+        window.location.href = "https://lmn.co.ke/auth/signin";
+        // import.meta.env.VITE_SIGNIN_URL || "https://lmn.co.ke/auth/signin";
       }
     } else {
       //console.warn("No auth_token found");
       toast.error("No token found.");
       // Still redirect to login page
-      window.location.href =
-        import.meta.env.VITE_SIGNIN_URL || "https://lmn.co.ke/auth/signin";
+      window.location.href = "https://lmn.co.ke/auth/signin";
     }
   };
 
   const requireAuth = (
     requiresAuth: boolean,
-    redirectTo: string = import.meta.env.VITE_SIGNIN_URL ||
-      "https://lmn.co.ke/auth/signin"
+    redirectTo: string = "https://lmn.co.ke/auth/signin"
   ) => {
     //console.log("requireAuth function called");
     //console.log("isLoading:", isLoading);
     // console.log("user:", user);
 
-    const DASHBOARD_URL = import.meta.env.VITE_DASHBOARD_URL;
-    const SIGNIN_URL = import.meta.env.VITE_SIGNIN_URL;
+    const DASHBOARD_URL = "https://mybusiness.lmn.co.ke";
+    const SIGNIN_URL = "https://lmn.co.ke/auth/signin";
+    // const DASHBOARD_URL = import.meta.env.VITE_DASHBOARD_URL;
+    // const SIGNIN_URL = import.meta.env.VITE_SIGNIN_URL;
 
     if (isLoading) {
       //console.log("Still loading auth state, waiting...");
@@ -183,7 +183,7 @@ export const useAuth = () => {
 export const withAuth = (
   Component: React.ComponentType<any>,
   requiresAuth: boolean = true,
-  redirectTo: string = import.meta.env.VITE_SIGNIN_URL
+  redirectTo: string = "https://lmn.co.ke/auth/signin"
 ) => {
   const WithAuth = (props: any) => {
     const { requireAuth, isLoading, checkAuth } = useAuth();
