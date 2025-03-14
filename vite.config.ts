@@ -7,8 +7,9 @@ import path from "node:path";
 
 export default defineConfig({
   server: {
-    host: "local.lmn.co.ke",
+    host: "0.0.0.0",
     port: 3000,
+    allowedHosts: ["local.lmn.co.ke", "https://mybusiness.lmn.co.ke"],
   },
   css: {
     postcss: {

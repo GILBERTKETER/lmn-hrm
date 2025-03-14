@@ -1,14 +1,8 @@
-"use client";
-
 import * as React from "react";
 import { Check, ChevronsUpDown, PlusCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Command,
