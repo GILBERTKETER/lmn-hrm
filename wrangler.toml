@@ -1,0 +1,8 @@
+name = "my-cloudflare-app"
+type = "javascript"
+
+# Set entry point
+main = "./app/root.ts"
+
+# Add compatibility flags if needed
+compatibility_flags = ["nodejs_compat"]
