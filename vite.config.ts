@@ -17,6 +17,9 @@ export default defineConfig({
     },
   },
   plugins: [reactRouter(), tsconfigPaths()],
+  build: {
+    outDir: "dist",
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./app"),
