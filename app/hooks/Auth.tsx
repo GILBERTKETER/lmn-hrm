@@ -98,7 +98,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (auth_token) {
       try {
-        const response = await LogUserOut(auth_token);
+        const response = await LogUserOut();
         if (!response.success) {
           toast.error("Failed to log out: " + response.error);
         }
@@ -117,19 +117,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.removeItem("auth_token");
         setUser(null);
         toast.success("Logged out successfully");
-        window.location.href = import.meta.env.VITE_SIGNIN_URL;
+        window.location.href =
+          import.meta.env.VITE_SIGNIN_URL || "https://lmn.co.ke/auth/signin";
       }
     } else {
       //console.warn("No auth_token found");
       toast.error("No token found.");
       // Still redirect to login page
-      window.location.href = import.meta.env.VITE_SIGNIN_URL;
+      window.location.href =
+        import.meta.env.VITE_SIGNIN_URL || "https://lmn.co.ke/auth/signin";
     }
   };
 
   const requireAuth = (
     requiresAuth: boolean,
-    redirectTo: string = import.meta.env.VITE_SIGNIN_URL
+    redirectTo: string = import.meta.env.VITE_SIGNIN_URL ||
+      "https://lmn.co.ke/auth/signin"
   ) => {
     //console.log("requireAuth function called");
     //console.log("isLoading:", isLoading);

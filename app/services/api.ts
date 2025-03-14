@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
 
-const API_URL = import.meta.env.VITE_AUTH_URL;
+const API_URL = import.meta.env.VITE_AUTH_URL || "https://auth.lmn.co.ke";
 const token = Cookies.get("auth_token");
 
 const api = axios.create({
