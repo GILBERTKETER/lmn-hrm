@@ -1,9 +1,0 @@
-name = "lmn-hrm"
-type = "module"  # Use "javascript" only if not using ES Modules
-
-# Set correct entry point
-main = "dist/index.js"
-
-# Compatibility settings
-compatibility_date = "2025-03-14"
-compatibility_flags = ["nodejs_compat"]
