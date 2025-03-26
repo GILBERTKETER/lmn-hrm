@@ -8,7 +8,7 @@ import path from "node:path";
 export default defineConfig({
   server: {
     host: "0.0.0.0",
-    port: 3000,
+    port: 3001,
     allowedHosts: ["local.lmn.co.ke", "https://mybusiness.lmn.co.ke"],
   },
   css: {
@@ -17,9 +17,7 @@ export default defineConfig({
     },
   },
   plugins: [reactRouter(), tsconfigPaths()],
-  build: {
-    outDir: "dist",
-  },
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./app"),
