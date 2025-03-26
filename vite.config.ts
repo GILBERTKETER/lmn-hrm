@@ -9,7 +9,11 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     port: 3001,
-    allowedHosts: ["local.lmn.co.ke", "https://mybusiness.lmn.co.ke"],
+    allowedHosts: [
+      "local.lmn.co.ke",
+      "https://hrm.lmn.co.ke",
+      "https://mybusiness.lmn.co.ke",
+    ],
   },
   css: {
     postcss: {
