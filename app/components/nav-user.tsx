@@ -27,7 +27,7 @@ import { useAuth } from "@/hooks/Auth";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   // Ensure we have initials even if user data is loading
   const firstInitial = _.first(user?.first_name) || "U";
@@ -115,14 +115,9 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={async () => {
-                window.location.replace("https://auth.cw.co.ke");
-              }}
-              className={"cursor-pointer"}
-            >
+            <DropdownMenuItem onClick={logout} className={"cursor-pointer"}>
               <LogOut />
-              Manage Account
+              Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
