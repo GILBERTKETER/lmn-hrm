@@ -33,8 +33,8 @@ export default function MainLayout() {
         <AppSidebar />
         <SidebarInset>
           <div className="">
-            <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 mr-4 lg:mr-4 mx-6">
-              <div className="flex items-center gap-2 px-4">
+            <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 mr-4 lg:mr-4 mx-3 md:mx-6">
+              <div className="flex items-center gap-2 px-2">
                 <SidebarTrigger className="-ml-3" />
                 {!!workspace.breadcrumbs.length && (
                   <Separator orientation="vertical" className="mr-2 h-4" />
