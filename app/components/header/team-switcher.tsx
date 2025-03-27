@@ -1,220 +1,146 @@
 import * as React from "react";
-import { Check, ChevronsUpDown, PlusCircle } from "lucide-react";
-
-import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from "@/components/ui/command";
+  AudioWaveform,
+  ChevronsUpDown,
+  GalleryVerticalEnd,
+  Plus,
+  Grid,
+} from "lucide-react";
+
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from "@/components/ui/sidebar";
 
-const groups = [
-  {
-    label: "Personal Account",
-    teams: [
-      {
-        label: "Alicia Rochi",
-        value: "personal",
-      },
-    ],
-  },
-  {
-    label: "Teams",
-    teams: [
-      {
-        label: "Acme Inc.",
-        value: "acme-inc",
-      },
-      {
-        label: "Monsters Inc.",
-        value: "monsters",
-      },
-    ],
-  },
-];
+export default function TeamSwitcher() {
+  const { isMobile } = useSidebar();
 
-type Team = (typeof groups)[number]["teams"][number];
+  const navigate = useNavigate();
+  interface business {
+    name: string;
+    logo: { id: string } | null;
+    plan: string;
+  }
 
-type PopoverTriggerProps = React.ComponentPropsWithoutRef<
-  typeof PopoverTrigger
->;
+  const [currentProfile, setCurrentProfile] = React.useState<business[]>([
+    {
+      name: "Lumenario",
+      logo: null,
+      plan: "Free",
+    },
+  ]);
 
-interface TeamSwitcherProps extends PopoverTriggerProps {}
+  const businesses: business[] = [
+    {
+      name: "Lumenario",
+      logo: null,
+      plan: "Free",
+    },
+  ];
 
-export default function TeamSwitcher({ className }: TeamSwitcherProps) {
-  const [open, setOpen] = React.useState(false);
-  const [showNewTeamDialog, setShowNewTeamDialog] = React.useState(false);
-  const [selectedTeam, setSelectedTeam] = React.useState<Team>(
-    groups[0].teams[0]
-  );
-  const [isMobile, setIsMobile] = React.useState(false);
-  React.useEffect(() => {
-    // Initial check
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768); // 768px is typical mobile breakpoint
-    };
-
-    checkIfMobile();
-
-    // Add event listener
-    window.addEventListener("resize", checkIfMobile);
-
-    // Cleanup
-    return () => window.removeEventListener("resize", checkIfMobile);
-  }, []);
   return (
-    <Dialog open={showNewTeamDialog} onOpenChange={setShowNewTeamDialog}>
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            aria-label="Select a team"
-            className={cn("w-[15rem] justify-between", className)}
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <SidebarMenuButton
+              size="lg"
+              className="border bg-background data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+            >
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                {/* TODO: support org logo */}
+                {currentProfile[0]?.logo ? (
+                  <img
+                    alt={`${currentProfile[0]?.name}`}
+                    src={`${import.meta.env.VITE_BACKEND_URL}/${
+                      import.meta.env.VITE_PRODUCT
+                    }/assets/${currentProfile[0]?.logo?.id}?height=100`}
+                    className="rounded-lg"
+                  />
+                ) : (
+                  <GalleryVerticalEnd className="size-4" />
+                )}
+              </div>
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-semibold">
+                  {currentProfile[0]?.name}
+                </span>
+              </div>
+              <ChevronsUpDown className="ml-auto" />
+            </SidebarMenuButton>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+            align="start"
+            side={isMobile ? "bottom" : "right"}
+            sideOffset={4}
           >
-            <Avatar className="mr-2 h-5 w-5">
-              <AvatarImage
-                src={`https://avatar.vercel.sh/${selectedTeam.value}.png`}
-                alt={selectedTeam.label}
-                className="grayscale"
-              />
-              <AvatarFallback>SC</AvatarFallback>
-            </Avatar>
-            {!isMobile && selectedTeam.label}
-            <ChevronsUpDown className="ml-auto opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent align="start" className="ml-4 lg:ml-0 w-[200px] p-0">
-          <Command>
-            <CommandInput placeholder="Search team..." />
-            <CommandList>
-              <CommandEmpty>No team found.</CommandEmpty>
-              {groups.map((group) => (
-                <CommandGroup key={group.label} heading={group.label}>
-                  {group.teams.map((team) => (
-                    <CommandItem
-                      key={team.value}
-                      onSelect={() => {
-                        setSelectedTeam(team);
-                        setOpen(false);
-                      }}
-                      className="text-sm"
-                    >
-                      <Avatar className="mr-2 h-5 w-5">
-                        <AvatarImage
-                          src={`https://avatar.vercel.sh/${team.value}.png`}
-                          alt={team.label}
-                          className="grayscale"
-                        />
-                        <AvatarFallback>SC</AvatarFallback>
-                      </Avatar>
-                      {team.label}
-                      <Check
-                        className={cn(
-                          "ml-auto",
-                          selectedTeam.value === team.value
-                            ? "opacity-100"
-                            : "opacity-0"
-                        )}
-                      />
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              ))}
-            </CommandList>
-            <CommandSeparator />
-            <CommandList>
-              <CommandGroup>
-                <DialogTrigger asChild>
-                  <CommandItem
-                    onSelect={() => {
-                      setOpen(false);
-                      setShowNewTeamDialog(true);
-                    }}
-                  >
-                    <PlusCircle className="h-5 w-5" />
-                    Create Team
-                  </CommandItem>
-                </DialogTrigger>
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      </Popover>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Create team</DialogTitle>
-          <DialogDescription>
-            Add a new team to manage products and customers.
-          </DialogDescription>
-        </DialogHeader>
-        <div>
-          <div className="space-y-4 py-2 pb-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Team name</Label>
-              <Input id="name" placeholder="Acme Inc." />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="plan">Subscription plan</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a plan" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="free">
-                    <span className="font-medium">Free</span> -{" "}
-                    <span className="text-muted-foreground">
-                      Trial for two weeks
-                    </span>
-                  </SelectItem>
-                  <SelectItem value="pro">
-                    <span className="font-medium">Pro</span> -{" "}
-                    <span className="text-muted-foreground">
-                      $9/month per user
-                    </span>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setShowNewTeamDialog(false)}>
-            Cancel
-          </Button>
-          <Button type="submit">Continue</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+            <DropdownMenuLabel className="text-xs text-muted-foreground">
+              Businesses
+            </DropdownMenuLabel>
+            {businesses.map((business, index) => (
+              <DropdownMenuItem
+                key={business?.name}
+                onClick={() => setCurrentProfile([business])}
+                className="gap-2 p-2 cursor-pointer"
+              >
+                <div className="flex size-6 items-center justify-center rounded-sm border">
+                  {business?.logo ? (
+                    <img
+                      alt={`${business?.name}`}
+                      src={`${import.meta.env.VITE_BACKEND_URL}/${
+                        import.meta.env.VITE_PRODUCT
+                      }/assets/${business?.logo?.id}?height=100`}
+                      className="rounded-sm size-4 shrink-0"
+                    />
+                  ) : (
+                    <AudioWaveform className="size-4 shrink-0" />
+                  )}
+                </div>
+                {business?.name}
+                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+              </DropdownMenuItem>
+            ))}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="gap-2 p-2 cursor-pointer"
+              onClick={() => {
+                navigate("/businesses/+");
+              }}
+            >
+              <div className="flex size-6 items-center justify-center rounded-md border bg-background">
+                <Plus className="size-4" />
+              </div>
+              <div className="font-medium text-muted-foreground">
+                Add business
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 p-2 cursor-pointer"
+              onClick={() => {
+                navigate("/businesses");
+              }}
+            >
+              <div className="flex size-6 items-center justify-center rounded-md border bg-background">
+                <Grid className="size-4" />
+              </div>
+              <div className="font-medium text-muted-foreground">Show all</div>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarMenuItem>
+    </SidebarMenu>
   );
 }

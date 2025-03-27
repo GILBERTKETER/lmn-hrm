@@ -8,11 +8,11 @@ import path from "node:path";
 export default defineConfig({
   server: {
     host: "0.0.0.0",
-    port: 3001,
+    port: 3000,
     allowedHosts: [
       "local.lmn.co.ke",
-      "https://hrm.lmn.co.ke",
-      "https://mybusiness.lmn.co.ke",
+      // "https://hrm.lmn.co.ke",
+      // "https://mybusiness.lmn.co.ke",
     ],
   },
   css: {

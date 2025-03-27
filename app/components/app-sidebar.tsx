@@ -26,6 +26,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import TeamSwitcher from "./header/team-switcher";
 
 const data = {
   user: {
@@ -153,7 +154,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           src={theme === "dark" ? "golden.png" : "/golden-line.png"}
           className="w-32 h-32"
           alt="logo"
-        />{" "}
+        />
+        <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
