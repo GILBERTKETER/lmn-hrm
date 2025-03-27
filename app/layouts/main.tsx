@@ -19,7 +19,8 @@ import React, { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/context/use-theme";
 import { useLocation } from "react-router";
-import { SunMoon } from "lucide-react";
+import { MoonIcon, SunIcon, SunMoon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function MainLayout() {
   const workspace = useWorkspace();
@@ -33,7 +34,7 @@ export default function MainLayout() {
         <SidebarInset>
           <div className="">
             <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 mr-4 lg:mr-4 mx-6">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-3" />
                 {!!workspace.breadcrumbs.length && (
                   <Separator orientation="vertical" className="mr-2 h-4" />
@@ -73,11 +74,15 @@ export default function MainLayout() {
                   </React.Fragment>
                 ))}
               </div>
-              <div className="flex jistify-end items-center">
-                <SunMoon className="h-4 w-4" onClick={toggleTheme} />
-              </div>
+              <Button
+                variant="ghost"
+                className="group/toggle h-8 w-8 px-0 cursor-pointer"
+                onClick={toggleTheme}
+              >
+                {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+              </Button>
             </header>
-            <div className="mx-2 md:mx-4 pt-4 pb-4">
+            <div className="mx-4 md:mx-6 pt-4 pb-4">
               <Outlet />
             </div>
           </div>
