@@ -152,7 +152,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader className="flex items-center justify-center">
         <img
           src={theme === "dark" ? "golden.png" : "/golden-line.png"}
-          className="w-full h-auto"
+          className="w-full h-32"
           alt="logo"
         />
         <TeamSwitcher />
