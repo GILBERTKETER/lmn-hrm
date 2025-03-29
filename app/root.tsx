@@ -12,6 +12,8 @@ import stylesheet from "./app.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "./context/use-theme";
 import WorkspaceProvider from "./hooks/useWorkspace";
+import { ColorControlProvider } from "@/context/color-context";
+import SaturationControl from "@/components/saturation-control";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -37,14 +39,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <ThemeProvider>
-          <AuthProvider>
-            <WorkspaceProvider>{children}</WorkspaceProvider>
-          </AuthProvider>
-        </ThemeProvider>
-        <ScrollRestoration />
-        <Scripts />
-        <Toaster />
+        <ColorControlProvider>
+          <ThemeProvider>
+            <AuthProvider>
+              <WorkspaceProvider>{children}</WorkspaceProvider>
+            </AuthProvider>
+          </ThemeProvider>
+          <ScrollRestoration />
+          <Scripts />
+          <Toaster />
+          <SaturationControl />
+        </ColorControlProvider>
       </body>
     </html>
   );
