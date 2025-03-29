@@ -27,19 +27,17 @@ const SaturationControl = () => {
   const dragControls = useDragControls();
   const [isDraggable, setIsDraggable] = useState(true);
 
-  // Check screen size
+  // Check screen size safely
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768);
+      if (typeof window !== "undefined") {
+        setIsMobile(window.innerWidth < 768);
+      }
     };
 
-    // Initial check
-    checkScreenSize();
-
-    // Add event listener
+    checkScreenSize(); // Run on mount
     window.addEventListener("resize", checkScreenSize);
 
-    // Cleanup
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
@@ -55,9 +53,7 @@ const SaturationControl = () => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Handle drag end
@@ -68,8 +64,9 @@ const SaturationControl = () => {
     });
   };
 
-  // Determine panel position (left or right) based on control position
-  const isPanelOnLeft = position.x > window.innerWidth / 2;
+  // Determine panel position (left or right) safely
+  const isPanelOnLeft =
+    typeof window !== "undefined" && position.x > window.innerWidth / 2;
 
   return (
     <motion.div

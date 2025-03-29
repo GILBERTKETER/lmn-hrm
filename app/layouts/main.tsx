@@ -21,6 +21,7 @@ import { useTheme } from "@/context/use-theme";
 import { useLocation } from "react-router";
 import { MoonIcon, SunIcon, SunMoon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SaturationControl from "@/components/saturation-control";
 
 export default function MainLayout() {
   const workspace = useWorkspace();
@@ -30,6 +31,7 @@ export default function MainLayout() {
   return (
     <SidebarProvider className="flex flex-col pt-(--header-height) h-screen">
       <div className="flex flex-1">
+        <SaturationControl />
         <AppSidebar />
         <SidebarInset>
           <div className="">
