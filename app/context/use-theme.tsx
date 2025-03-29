@@ -23,7 +23,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       setTheme("dark");
       document.documentElement.classList.add("dark");
       // Set the default theme in cookies
-      Cookies.set("lmn-theme", "dark", { expires: 365, path: "/" });
+      Cookies.set("lmn-theme", "dark", {
+        expires: 365,
+        path: "/",
+        domain: ".lmn.co.ke", // Ensures the cookie is shared across subdomains
+      });
     }
   }, []);
 
@@ -32,7 +36,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       const newTheme = prevTheme === "light" ? "dark" : "light";
       document.documentElement.classList.toggle("dark", newTheme === "dark");
       // Set the theme in cookies (expires in 1 year)
-      Cookies.set("lmn-theme", newTheme, { expires: 365, path: "/" });
+      Cookies.set("lmn-theme", newTheme, {
+        expires: 365,
+        path: "/",
+        domain: ".lmn.co.ke", // Ensures the cookie is accessible on all subdomains
+      });
       return newTheme;
     });
   };
