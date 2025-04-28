@@ -10,7 +10,7 @@ export const routes: RouteConfig = [
   layout("layouts/main.tsx", [
     route("/", "routes/user/dashboard/index.tsx"),
     route("test", "routes/test/index.tsx"),
-    // Add other protected routes here
+
   ]),
 ];
 

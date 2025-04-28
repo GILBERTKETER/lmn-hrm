@@ -34,7 +34,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Check authentication on mount and whenever window gains focus
   useEffect(() => {
     const initAuth = async () => {
       await checkAuth();
@@ -42,11 +41,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     initAuth();
 
-    // Add event listeners for when the window regains focus or comes back online
     window.addEventListener("focus", initAuth);
     window.addEventListener("online", initAuth);
-
-    // Run checkAuth on page loads/refreshes
     window.addEventListener("load", initAuth);
 
     return () => {
@@ -58,35 +54,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkAuth = async () => {
     setIsLoading(true);
-    //console.log("Checking authentication...");
 
-    // Try to get the cookie directly from document.cookie
     const cookieString = document.cookie;
-    //console.log("All cookies:", cookieString);
-
-    // Extract auth_token manually if js-cookie is having issues
     const tokenMatch = cookieString.match(/auth_token=([^;]+)/);
     const token = tokenMatch ? tokenMatch[1] : Cookies.get("auth_token");
-
-    //console.log("token extracted:", token);
 
     if (token) {
       try {
         const decoded: User = jwtDecode(token);
-        //console.log("Decoded user: ", decoded);
         setUser(decoded);
-        return decoded; // Return user data for potential use elsewhere
+        setIsLoading(false);
+        return decoded;
       } catch (error) {
-        //console.error("Invalid token:", error);
         await logout();
         return null;
-      } finally {
-        setIsLoading(false);
       }
     } else {
-      //console.log("No auth token found");
       setUser(null);
-      setIsLoading(false);
+      // Stay in loading state to block empty dashboards
       return null;
     }
   };
@@ -103,14 +88,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           toast.error("Failed to log out: " + response.error);
         }
       } catch (error) {
-        //console.error("Error during logout:", error);
+        // handle silently
       } finally {
         Cookies.remove("auth_token", {
           path: "/",
           domain: "cw.co.ke",
         });
-
-        // Also remove manually
         document.cookie =
           "auth_token=; path=/; domain=cw.co.ke; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 
@@ -118,12 +101,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(null);
         toast.success("Logged out successfully");
         window.location.href = "https://lmn.co.ke/auth/signin";
-        // import.meta.env.VITE_SIGNIN_URL || "https://lmn.co.ke/auth/signin";
       }
     } else {
-      //console.warn("No auth_token found");
       toast.error("No token found.");
-      // Still redirect to login page
       window.location.href = "https://lmn.co.ke/auth/signin";
     }
   };
@@ -132,28 +112,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     requiresAuth: boolean,
     redirectTo: string = "https://lmn.co.ke/auth/signin"
   ) => {
-    //console.log("requireAuth function called");
-    //console.log("isLoading:", isLoading);
-    // console.log("user:", user);
-
     const DASHBOARD_URL = "https://mybusiness.lmn.co.ke";
     const SIGNIN_URL = "https://lmn.co.ke/auth/signin";
-    // const DASHBOARD_URL = import.meta.env.VITE_DASHBOARD_URL;
-    // const SIGNIN_URL = import.meta.env.VITE_SIGNIN_URL;
 
-    if (isLoading) {
-      //console.log("Still loading auth state, waiting...");
-      return;
-    }
-
-    //console.log("Require Auth running...");
-    if (requiresAuth && !user) {
-      //console.log("User is NOT authenticated. Redirecting to sign-in...");
+    if (requiresAuth && !user && !isLoading) {
       window.location.href = redirectTo || SIGNIN_URL;
     }
 
-    if (!requiresAuth && user) {
-      //console.log("User is authenticated. Redirecting to dashboard...");
+    if (!requiresAuth && user && !isLoading) {
       window.location.href = redirectTo || DASHBOARD_URL;
     }
   };
@@ -164,10 +130,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isLoading,
     logout,
     requireAuth,
-    checkAuth, // Expose checkAuth in the context
+    checkAuth,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {isLoading ? (
+        <div className="flex min-h-screen items-center justify-center gap-2">
+          <Loader className="animate-spin text-primary w-6 h-6" />
+          <p>Please wait</p>
+        </div>
+      ) : (
+        children
+      )}
+    </AuthContext.Provider>
+  );
 }
 
 // Custom hook to use the auth context
@@ -179,7 +156,7 @@ export const useAuth = () => {
   return context;
 };
 
-// Higher order component to wrap pages that require authentication
+// Higher-order component to wrap protected pages
 export const withAuth = (
   Component: React.ComponentType<any>,
   requiresAuth: boolean = true,
@@ -189,16 +166,13 @@ export const withAuth = (
     const { requireAuth, isLoading, checkAuth } = useAuth();
 
     useEffect(() => {
-      // Force a fresh check on component mount
       const refreshAuth = async () => {
         await checkAuth();
-        if (!isLoading) {
-          requireAuth(requiresAuth, redirectTo);
-        }
+        requireAuth(requiresAuth, redirectTo);
       };
 
       refreshAuth();
-    }, [isLoading]);
+    }, []);
 
     return isLoading ? (
       <div className="flex min-h-screen items-center justify-center gap-2">
