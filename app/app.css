@@ -84,6 +84,7 @@
 
   body {
     @apply bg-secondary text-foreground;
+    font-family: "Comic Sans MS", "Comic Sans";
   }
 }
 * {
